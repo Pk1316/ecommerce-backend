@@ -2,11 +2,15 @@ import Product from "../entities/Product";
 import User from "../entities/User";
 
 const getSellerProducts = async (sellerId: number) => {
-  return await Product.find({ where: { id: sellerId },relations:['category'] });
+  return await Product.find({
+    where: { seller: { id: sellerId } },
+    relations: ["category"],
+  });
 };
 
 const addProduct = async (sellerId: number, productData: any) => {
-  const product = Product.create({ ...productData, sellerId });
+  const seller = await User.findOneBy({ id: sellerId });
+  const product = Product.create({ ...productData, seller: seller });
   await product.save();
   return product;
 };

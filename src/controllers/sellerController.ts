@@ -15,6 +15,7 @@ export const getSellerProducts = async (req:Request, res:Response) => {
 
 export const addProduct = async (req:Request, res:Response) => {
   try {
+    
     const product = await sellerService.addProduct((req.user as JwtPayload).id, req.body);
     ApiResponse.sendSuccess(res, 201, product, 'Product added successfully');
   } catch (error:any) {
