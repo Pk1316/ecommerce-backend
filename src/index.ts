@@ -1,4 +1,4 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 import express from "express";
 import database from "./database";
 import cors from "cors";
@@ -12,8 +12,9 @@ import productRoutes from "./routers/productRoutes";
 import sellerRoutes from "./routers/sellerRoutes";
 import categoryRoutes from "./routers/categoryRoutes";
 // import { JwtPayload } from 'jsonwebtoken';
- 
-import * as types from './custom.d'
+
+import * as types from "./custom.d";
+import ApiResponse from "./utils/apiResponse";
 
 const bootstrap = async () => {
   const expressApp = express();
@@ -21,13 +22,14 @@ const bootstrap = async () => {
   expressApp.use(cors());
 
   await database();
-
+  expressApp.get("/", (req, res) => {
+    ApiResponse.sendSuccess(res, 200, null, "Api working 🚀");
+  });
   expressApp.use("/api/auth", authRoutes);
   expressApp.use("/api/products", authMiddleware, productRoutes);
   // expressApp.use("/api/buyer", authMiddleware, buyerRoutes);
   expressApp.use("/api/seller", authMiddleware, sellerRoutes);
-  expressApp.use('/api/categories', authMiddleware, categoryRoutes); 
-
+  expressApp.use("/api/categories", authMiddleware, categoryRoutes);
 
   expressApp.use(exceptionHandlerMiddleware);
 
