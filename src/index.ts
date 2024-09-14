@@ -8,7 +8,7 @@ import authMiddleware from "./middlewares/authMiddleware";
 
 import authRoutes from "./routers/authRoutes";
 import productRoutes from "./routers/productRoutes";
-// import buyerRoutes from "./routers/buyerRoutes";
+import buyerRoutes from "./routers/buyerRoutes";
 import sellerRoutes from "./routers/sellerRoutes";
 import categoryRoutes from "./routers/categoryRoutes";
 // import { JwtPayload } from 'jsonwebtoken';
@@ -26,8 +26,8 @@ const bootstrap = async () => {
     ApiResponse.sendSuccess(res, 200, null, "Api working 🚀");
   });
   expressApp.use("/api/auth", authRoutes);
-  expressApp.use("/api/products", authMiddleware, productRoutes);
-  // expressApp.use("/api/buyer", authMiddleware, buyerRoutes);
+  expressApp.use("/api/products", productRoutes);
+  expressApp.use("/api/buyer", authMiddleware, buyerRoutes);
   expressApp.use("/api/seller", authMiddleware, sellerRoutes);
   expressApp.use("/api/categories", authMiddleware, categoryRoutes);
 
