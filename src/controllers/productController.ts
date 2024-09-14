@@ -8,7 +8,7 @@ import ApiResponse from "../utils/apiResponse";
 export const searchProducts = async (req: Request, res: Response) => {
   try {
     const products = await productService.searchProducts(req.body);
-    ApiResponse.sendSuccess(res, 201, products, "Product fectched");
+    ApiResponse.sendSuccess(res, 200, products, "Product fectched");
   } catch (error:any) {
     ApiResponse.sendError(res, 400, error.message);
   }
